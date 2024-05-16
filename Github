@@ -1,0 +1,19 @@
+import discord
+from discord.ext import commands
+
+# Create a bot instance
+bot = commands.Bot(command_prefix='!')
+
+# Define a command to kick members
+@bot.command(name='kick')
+async def kick(ctx, member: discord.Member):
+    # Check if the user has permission to kick members
+    if ctx.author.guild_permissions.kick_members:
+        # Kick the member
+        await member.kick()
+        await ctx.send(f'{member.display_name} has been kicked.')
+    else:
+        await ctx.send("You don't have permission to kick members.")
+
+# Run the bot
+bot.run('your_bot_token')
